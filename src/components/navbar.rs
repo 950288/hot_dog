@@ -1,40 +1,43 @@
+use crate::components::Logo;
 use std::collections::HashMap;
-use crate::components::{Logo};
+use std::rc::Rc;
 
-use crate::{Route};
+use crate::routes::PAGE_DATA;
+use crate::Route;
+use dioxus::html::geometry::euclid::Size2D;
 use dioxus::logger::tracing::info;
 use dioxus::{html::geometry::euclid::Rect, prelude::*};
-use crate::routes::PAGE_DATA;
 
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.scss");
 
 #[component]
 pub fn Navbar() -> Element {
-    let current_route =  router().current::<Route>();
-    let mut focused_route =  use_signal(|| current_route.clone());
+    let current_route = router().current::<Route>();
+    let mut focused_route = use_signal(|| current_route.clone());
 
-    let mut Link_elements: Signal<HashMap<Route, std::rc::Rc<MountedData>>> = use_signal(|| HashMap::new());
+    let mut Link_elements: Signal<HashMap<Route, Rc<MountedData>>> = use_signal(|| HashMap::new());
     let mut onResize = use_signal(|| 0);
 
-    let indicator_position = use_resource(move || async move {
+    let mut indicator_position: Signal<Rect<f64, dioxus_elements::geometry::Pixels>> =
+        use_signal(|| Rect::zero());
+
+    let indicator_position_res = use_resource(move || async move {
         onResize();
-        let Link_elements = Link_elements.read();
-        let read = Link_elements.get(&focused_route());
-        let client_rect = read.as_ref().map(|el| el.get_client_rect());
-        if let Some(client_rect) = client_rect {
-            if let Ok(rect) = client_rect.await {
-                return rect
-            } else {
-                Rect::zero()
+        if let Some(read) = Link_elements().get(&focused_route()) {
+            if let Ok(rect) = (**read).get_client_rect().await {
+                return rect;
             }
-        } else {
-            Rect::zero()
         }
+        Rect::from_size(Size2D::new(0.0, 0.0))
     });
 
-    // let car = format!("{:?}", indicator_position());
+    use_effect(move || {
+        if let Some(rect) = indicator_position_res() {
+            indicator_position.set(rect);
+        }
+        info!("{:?}", indicator_position.read());
+    });
 
-    // let value = &current_route;
     rsx! {
         document::Link { rel: "stylesheet", href: NAVBAR_CSS }
         nav {
@@ -45,17 +48,18 @@ pub fn Navbar() -> Element {
             ul {
                 id: "navbar-list",
                 class: "col-md-22 col-20",
+                display: "flex",
                 li {
                     class: "nav-logo",
                     Logo {}
                 },
                 li {
-                    left: "{indicator_position().unwrap_or(Rect::zero()).origin.x}px",
-                    width: "{indicator_position().unwrap_or(Rect::zero()).size.width}px",
                     class: "indicator",
+                    left: "{indicator_position().origin.x}px",
+                    width: "{indicator_position().size.width}px"
                 },
                 for (route, content) in &*PAGE_DATA {
-                    li { 
+                    li {
                         class: "navbar-item",
                         onmounted: move |element| {
                             let mut Link_elements_clone = Link_elements();
@@ -83,6 +87,6 @@ pub fn Navbar() -> Element {
 }
 
 fn test() -> impl FnMut() -> Route {
-    let current_route =  Route::Calc;
+    let current_route = Route::Calc;
     move || current_route.clone()
 }
