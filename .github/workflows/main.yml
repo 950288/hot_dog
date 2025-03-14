@@ -32,6 +32,12 @@ jobs:
         dx bundle -r --platform web --out-dir ./out_dir
         cp -r ./out_dir/ ./deploy
 
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4    
+      with:
+        name: artifact
+        path: ./deploy
+
     - name: Install coscmd
       run: sudo pip install coscmd
 
