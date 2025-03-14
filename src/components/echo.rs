@@ -1,6 +1,6 @@
 use dioxus::prelude::*;
 
-const ECHO_CSS: Asset = asset!("/assets/styling/echo.css");
+const ECHO_CSS: Asset = asset!("/assets/styling/echo.scss");
 
 /// Echo component that demonstrates fullstack server functions.
 #[component]
@@ -15,8 +15,8 @@ pub fn Echo() -> Element {
             input {
                 placeholder: "Type here to echo...",
                 oninput:  move |event| async move {
-                    // let data = echo_server(event.value()).await.unwrap();
-                    // response.set(data);
+                    let data = echo_server(event.value()).await.unwrap();
+                    response.set(data);
                 },
             }
 
@@ -31,7 +31,7 @@ pub fn Echo() -> Element {
 }
 
 // Echo the user input on the server.
-// #[server(EchoServer)]
-// async fn echo_server(input: String) -> Result<String, ServerFnError> {
-//     Ok(input)
-// }
+#[server(EchoServer)]
+async fn echo_server(input: String) -> Result<String, ServerFnError> {
+    Ok(input)
+}

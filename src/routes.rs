@@ -8,7 +8,7 @@ use super::views::{Blog, Home, Calc};
 
 #[derive(Debug, Clone, Routable, PartialEq, Eq, Hash)]
 #[rustfmt::skip]
-pub(crate) enum Route {
+pub enum Route {
     #[layout(Navbar)]
     #[route("/")]
     Home,
@@ -30,5 +30,3 @@ pub(crate) static PAGE_DATA: Lazy<IndexMap<Route, PageContent>> = Lazy::new(|| {
     map.insert(Route::Calc, PageContent { title: "Calc".to_string() });
     map
 });
-
-pub static CURRENT_ROUTE: GlobalSignal<Route> = Global::new(|| Route::Home);

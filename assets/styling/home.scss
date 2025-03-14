@@ -1,0 +1,12 @@
+div.container{
+    width: 1200px;
+    max-width: 100vw;
+    overflow: hidden;
+    margin: 0 auto;
+
+    #hero{
+        img{
+            width: 100%;
+        }
+    }
+}

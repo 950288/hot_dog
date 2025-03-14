@@ -30,7 +30,7 @@ jobs:
     - name: Dioxus Build
       run: |
         dx bundle -r --platform web --out-dir ./out_dir
-        cp -r ./out_dir/public ./deploy
+        cp -r ./out_dir/ ./deploy
 
     - name: Install coscmd
       run: sudo pip install coscmd

@@ -1,23 +1,21 @@
-use dioxus::prelude::*;
-use routes::{Route};
+use dioxus::{document::{Document, Stylesheet}, prelude::*};
+use routes::Route;
+use utils::color_mode::ColorMode;
 
 mod components;
-mod views;
+mod utils;
 mod routes;
-
-const FAVICON: Asset = asset!("/assets/favicon.ico");
-// const MAIN_CSS: Asset = ;
+mod views;
 
 fn main() {
-    dioxus::launch(App);
+    dioxus::launch(app);
 }
 
 #[component]
-fn App() -> Element {
-    use document::Stylesheet;
+fn app() -> Element {
     rsx! {
-        document::Link { rel: "icon", href: FAVICON }
-        Stylesheet { href: asset!("/assets/styling/main.scss")}
+        document::Stylesheet { href: asset!("/assets/styling/main.scss")}
+        document::Link { rel: "icon", href: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🚀</text></svg>" }
         Router::<Route> {}
     }
 }

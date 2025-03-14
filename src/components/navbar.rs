@@ -35,7 +35,7 @@ pub fn Navbar() -> Element {
         if let Some(rect) = indicator_position_res() {
             indicator_position.set(rect);
         }
-        info!("{:?}", indicator_position.read());
+        // info!("{:?}", indicator_position.read());
     });
 
     rsx! {
@@ -51,7 +51,7 @@ pub fn Navbar() -> Element {
                 display: "flex",
                 li {
                     class: "nav-logo",
-                    Logo {}
+                    Logo {},
                 },
                 li {
                     class: "indicator",
@@ -84,9 +84,4 @@ pub fn Navbar() -> Element {
         }
         Outlet::<Route> {}
     }
-}
-
-fn test() -> impl FnMut() -> Route {
-    let current_route = Route::Calc;
-    move || current_route.clone()
 }
