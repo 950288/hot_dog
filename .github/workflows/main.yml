@@ -19,7 +19,8 @@ jobs:
         profile: minimal
         toolchain: stable
         override: true
-        target: x86_64-unknown-linux-musl
+        target: wasm32-unknown-unknown
+
     
     - uses: cargo-bins/cargo-binstall@main
     - name: Install Dioxus-CLI
@@ -29,7 +30,7 @@ jobs:
     - uses: Swatinem/rust-cache@v2
     - name: Dioxus Build
       run: |
-        dx bundle -r --platform web --out-dir ./deploy --server-target x86_64-unknown-linux-musl
+        dx bundle -r --platform web --out-dir ./deploy/web
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4    
