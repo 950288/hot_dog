@@ -1,4 +1,4 @@
-use dioxus::prelude::*;
+use dioxus::{prelude::*};
 
 const ECHO_CSS: Asset = asset!("/assets/styling/echo.scss");
 
