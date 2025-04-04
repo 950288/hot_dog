@@ -1,4 +1,4 @@
-use crate::components::{Echo, Hero};
+use crate::components::{Echo, EchoWasm, Hero};
 use dioxus::prelude::*;
 
 const HOME_CSS: Asset = asset!("/assets/styling/home.scss");
@@ -10,7 +10,14 @@ pub fn Home() -> Element {
         div {
             class: "container",
             Hero {}
-            Echo {}
+            div {
+                class: "row",
+                Echo {
+                }
+                EchoWasm {
+                }
+
+            }
         }
     }
 }

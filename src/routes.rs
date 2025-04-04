@@ -1,8 +1,4 @@
-use indexmap::IndexMap;
-
 use dioxus::prelude::*;
-use once_cell::sync::Lazy;
-
 use super::components::Navbar;
 use super::views::{Blog, Home, Calc};
 
@@ -23,6 +19,9 @@ pub struct PageContent {
     pub title: String
 }
 
+
+use indexmap::IndexMap;
+use once_cell::sync::Lazy;
 pub(crate) static PAGE_DATA: Lazy<IndexMap<Route, PageContent>> = Lazy::new(|| {
     let mut map = IndexMap::new();
     map.insert(Route::Home, PageContent { title: "Home".to_string() });

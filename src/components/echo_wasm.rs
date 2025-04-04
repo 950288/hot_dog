@@ -2,16 +2,15 @@ use dioxus::prelude::*;
 
 const ECHO_CSS: Asset = asset!("/assets/styling/echo.scss");
 
-/// Echo component that demonstrates fullstack server functions.
 #[component]
-pub fn Echo() -> Element {
+pub fn EchoWasm() -> Element {
     let mut response = use_signal(|| String::new());
 
     rsx! {
         document::Link { rel: "stylesheet", href: ECHO_CSS }
         div {
             id: "echo",
-            h4 { "ServerFn Echo" }
+            h4 { "wasmFn Echo" }
             input {
                 placeholder: "Type here to echo...",
                 oninput:  move |event| async move {
@@ -30,16 +29,15 @@ pub fn Echo() -> Element {
     }
 }
 
-// Echo the user input on the server.
-#[server(EchoServer)]
 async fn echo_server(input: String) -> Result<String, ServerFnError> {
-    use candle_core::{Device, Tensor};
+    // use candle_core::{Device, Tensor};
 
-    let device = Device::Cpu;
+    // let device = Device::Cpu;
 
-    let a = Tensor::randn(0f32, 1., (2, 3), &device)?;
-    let b = Tensor::randn(0f32, 1., (3, 4), &device)?;
+    // let a = Tensor::randn(0f32, 1., (2, 3), &device)?;
+    // let b = Tensor::randn(0f32, 1., (3, 4), &device)?;
 
-    let c = a.matmul(&b)?.to_vec2::<f32>()?;
+    // let c = a.matmul(&b)?.to_vec2::<f32>()?;
+    let c = "fghjk";
     Ok(format!("Hello, {:?}", c).to_string())
 }
