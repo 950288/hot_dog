@@ -2,6 +2,8 @@ FROM ubuntu:latest
 
 WORKDIR /code
 
+COPY ./sources.list /etc/apt/sources.list
+
 RUN apt-get update
 
 RUN apt-get install -y vim screen curl sudo unzip fuse3 net-tools
