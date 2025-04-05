@@ -10,11 +10,12 @@ edition = "2021"
 dioxus = { version = "0.6.3", features = ["router", "fullstack", "web"] }
 indexmap = { version = "2.7.1", optional = true }
 once_cell = { version = "1.20.3", optional = true }
-candle-core = { version = "0.8.4", optional = true }
+candle-core = { version = "0.9.0-alpha.1", optional = true }
+getrandom = { version = "0.3.0", features = ["wasm_js"], optional = true }
 
 [features]
-web = ["dioxus/web", "dep:indexmap", "dep:once_cell"]
-server = ["dioxus/server", "dep:candle-core"]
+web = ["dioxus/web", "dep:indexmap", "dep:once_cell", "dep:candle-core", "dep:getrandom"]
+server = ["dioxus/server", "dep:candle-core", "dep:getrandom"]
 
 [profile]
 

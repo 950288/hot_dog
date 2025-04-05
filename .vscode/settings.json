@@ -1,6 +1,8 @@
 {
     "rust-analyzer.cargo.features": [
-        "web",
-        // "server"
+        "server", "web"
+    ],
+    "cSpell.words": [
+        "dioxus"
     ]
 }

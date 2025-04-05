@@ -30,14 +30,14 @@ pub fn EchoWasm() -> Element {
 }
 
 async fn echo_server(input: String) -> Result<String, ServerFnError> {
-    // use candle_core::{Device, Tensor};
+    use candle_core::{Device, Tensor};
 
-    // let device = Device::Cpu;
+    let device = Device::Cpu;
 
-    // let a = Tensor::randn(0f32, 1., (2, 3), &device)?;
-    // let b = Tensor::randn(0f32, 1., (3, 4), &device)?;
+    let a = Tensor::randn(0f32, 1., (2, 3), &device)?;
+    let b = Tensor::randn(0f32, 1., (3, 4), &device)?;
 
-    // let c = a.matmul(&b)?.to_vec2::<f32>()?;
-    let c = "fghjk";
+    let c = a.matmul(&b)?.to_vec2::<f32>()?;
+    // let c = "fghjk";
     Ok(format!("Hello, {:?}", c).to_string())
 }
