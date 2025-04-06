@@ -1,8 +1,8 @@
 mod home;
 pub use home::Home;
 
-mod blog;
-pub use blog::Blog;
+mod prot;
+pub use prot::Prot;
 
 mod calc;
 pub use calc::Calc;

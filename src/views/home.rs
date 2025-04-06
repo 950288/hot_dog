@@ -8,7 +8,7 @@ pub fn Home() -> Element {
     rsx! {
         document::Link { rel: "stylesheet", href: HOME_CSS },
         div {
-            class: "container",
+            class: "home container",
             Hero {}
             div {
                 class: "row",

@@ -5,10 +5,11 @@ use std::rc::Rc;
 use crate::routes::PAGE_DATA;
 use crate::Route;
 use dioxus::html::geometry::euclid::Size2D;
-use dioxus::logger::tracing::info;
 use dioxus::{html::geometry::euclid::Rect, prelude::*};
 
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.scss");
+
+const SUN: Asset = asset!("/assets/icons/sun.svg");
 
 #[component]
 pub fn Navbar() -> Element {
@@ -77,6 +78,16 @@ pub fn Navbar() -> Element {
                             class: "navbar-link",
                             to: route.clone(),
                             "{content.title}"
+                        }
+                    }
+                }
+                li {
+                    class:"theme-switcher",
+                    span {  
+                        class:"theme-switch",
+                        img {
+                            class:"icon",
+                            src: SUN,
                         }
                     }
                 }
