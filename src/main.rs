@@ -1,10 +1,10 @@
 use dioxus::{document::{Document, Stylesheet}, prelude::*};
 #[cfg(feature = "web")]
 use routes::Route;
-use utils::color_mode::ColorMode;
 
 mod components;
 mod utils;
+
 #[cfg(feature = "web")]
 mod routes;
 #[cfg(feature = "web")]

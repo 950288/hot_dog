@@ -2,14 +2,20 @@ use crate::components::Logo;
 use std::collections::HashMap;
 use std::rc::Rc;
 
+use ::web_sys::window;
+
 use crate::routes::PAGE_DATA;
 use crate::Route;
 use dioxus::html::geometry::euclid::Size2D;
+use dioxus::html::u;
+use dioxus::logger::tracing;
 use dioxus::{html::geometry::euclid::Rect, prelude::*};
-
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.scss");
 
 const SUN: Asset = asset!("/assets/icons/sun.svg");
+const MOON: Asset = asset!("/assets/icons/moon.svg");
+#[cfg(feature = "web")]
+use crate::utils::{ColorMode, ColorModeType};
 
 #[component]
 pub fn Navbar() -> Element {
@@ -37,6 +43,31 @@ pub fn Navbar() -> Element {
             indicator_position.set(rect);
         }
         // info!("{:?}", indicator_position.read());
+    });
+
+    let ToggleTheme = |_| {
+        let current = *ColorMode.read();
+        // let root = window().unwrap().document().unwrap().get_element_by_id("root").unwrap();
+        // root.set_attribute("data-theme", current.as_str()).unwrap();
+        *ColorMode.write() = match current {
+            ColorModeType::light => ColorModeType::dark,
+            ColorModeType::dark => ColorModeType::light,
+        };
+        tracing::info!("Toggled theme to {:?}", *ColorMode.read());
+    };
+
+    let mut theme_icon = use_signal(|| match *ColorMode.read() {
+        ColorModeType::light => SUN,
+        ColorModeType::dark => MOON,
+    });
+
+    use_effect(move || {
+        tracing::info!("Toggled use_effect");
+        let current = *ColorMode.read();
+        match current {
+            ColorModeType::light => theme_icon.set(SUN),
+            ColorModeType::dark => theme_icon.set(MOON),
+        };
     });
 
     rsx! {
@@ -83,11 +114,12 @@ pub fn Navbar() -> Element {
                 }
                 li {
                     class:"theme-switcher",
-                    span {  
+                    span {
                         class:"theme-switch",
+                        onclick: ToggleTheme,
                         img {
                             class:"icon",
-                            src: SUN,
+                            src: "{theme_icon}"
                         }
                     }
                 }
