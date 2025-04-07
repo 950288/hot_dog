@@ -15,8 +15,8 @@ pub fn Prot() -> Element {
                 class: "header",
                 "Protein"
             }
-            h2 {
-                "Enzyme Commission Number Prediction"
+            main { 
+                class: "main col-20 col-md-24 offset-md-0 offset-2",
             }
 
         }

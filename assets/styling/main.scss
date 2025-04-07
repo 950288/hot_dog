@@ -4,17 +4,21 @@
 }
 
 * {
-    transition: background-color .2s ease-in-out;
+    // transition: background-color .2s ease-in-out;
     box-sizing: border-box;
     scroll-behavior: smooth;
     font-family: var(--vp-font-family-base);
 }
 
 body {
-    background-color: #4e6ec1;
+    background-color: #6893F7;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html.dark body{
+    background-color: #121212;
 }
 
 html {
@@ -75,3 +79,11 @@ html {
 }
 
 @import "./col.scss";
+
+:root {
+    --bg-main: #f4f4f9;
+}
+
+html.dark { 
+    --bg-main: rgb(30, 30, 32);
+}

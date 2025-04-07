@@ -42,13 +42,17 @@ pub fn Navbar() -> Element {
         if let Some(rect) = indicator_position_res() {
             indicator_position.set(rect);
         }
-        // info!("{:?}", indicator_position.read());
     });
 
     let ToggleTheme = |_| {
         let current = *ColorMode.read();
-        // let root = window().unwrap().document().unwrap().get_element_by_id("root").unwrap();
-        // root.set_attribute("data-theme", current.as_str()).unwrap();
+        document::eval(&format!(
+            r#"document.documentElement.setAttribute("class", "{}")"#,
+            match current {
+                ColorModeType::light => "dark",
+                ColorModeType::dark => "light",
+            }
+        ));
         *ColorMode.write() = match current {
             ColorModeType::light => ColorModeType::dark,
             ColorModeType::dark => ColorModeType::light,
