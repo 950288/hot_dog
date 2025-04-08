@@ -13,15 +13,29 @@
 
   main.main {
     background: var(--bg-main);
-    height: 100vh;
+    height: fit-content;
     border-radius: 4px;
     margin-bottom: 3em;
+    padding: 2.5rem;
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    * {
+      color: black;
+    }
+
+    div{
+      margin-top: 2rem;
+    }
   }
 
   @media screen and (max-width: 600px) {
     h1.header {
       font-size: 3rem;
     }
+
     main.main {
       border-radius: 0;
     }
@@ -32,6 +46,12 @@ html.dark {
   .prot.container {
     h1.header {
       color: rgb(93, 174, 254);
+    }
+
+    main.main {
+      * {
+        color: white;
+      }
     }
   }
 }
