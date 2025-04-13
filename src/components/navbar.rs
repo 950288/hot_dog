@@ -1,13 +1,9 @@
 use crate::components::Logo;
 use std::collections::HashMap;
 use std::rc::Rc;
-
-use ::web_sys::window;
-
 use crate::routes::PAGE_DATA;
 use crate::Route;
 use dioxus::html::geometry::euclid::Size2D;
-use dioxus::html::u;
 use dioxus::logger::tracing;
 use dioxus::{html::geometry::euclid::Rect, prelude::*};
 const NAVBAR_CSS: Asset = asset!("/assets/styling/navbar.scss");

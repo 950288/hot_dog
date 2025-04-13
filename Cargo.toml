@@ -14,10 +14,10 @@ candle-core = { version = "0.9.0-alpha.1", optional = true }
 getrandom = { version = "0.3.0", features = ["wasm_js"], optional = true }
 web-sys = { version = "0.3.77", optional = true }
 anyhow = { version = "1.0.97", optional = true }
-pdbtbx = "0.12.0"
+pdbtbx = { version = "0.12.0", optional = true }
 
 [features]
-web = ["dioxus/web", "dep:indexmap", "dep:once_cell", "dep:candle-core", "dep:getrandom", "dep:web-sys", "dep:anyhow"]
+web = ["dioxus/web", "dep:indexmap", "dep:once_cell", "dep:candle-core", "dep:getrandom", "dep:web-sys", "dep:anyhow", "dep:pdbtbx"]
 server = ["dioxus/server", "dep:candle-core", "dep:getrandom"]
 
 [profile]
